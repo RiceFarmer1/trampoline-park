@@ -1,4 +1,4 @@
-import { hotReloader, Trash } from "shared/jecs/components";
+import { hotReloader } from "shared/jecs/components";
 import { useHookState } from "../topo";
 import { useChange } from "./use-change";
 import { useEffect } from "./use-effect";
@@ -33,19 +33,30 @@ function getInstanceByName(fullName: string): Instance | undefined {
 }
 
 export function useRoute<T extends keyof typeof routes>(
-    route: typeof routes[T],
-    callback: Parameters<typeof routes[T]["listen"]>[0],
+	route: typeof routes[T],
+	callback: Parameters<typeof routes[T]["listen"]>[0],
 ) {
-    useEffect(() => {
-        const trash = new Janitor()
-        const systemMod = getInstanceByName(debug.info(callback, "s")[0]) as ModuleScript
-        
-       const callbackCast = callback as unknown as (data: unknown, player?: Player) => void;
-        
-        trash.Add(route.listen(callbackCast) as unknown as Callback);
-        
-        if (systemMod) trash.Add(hotReloader.listen(systemMod, () => { }, () => trash?.Destroy?.()))
-        
-        return () => trash?.Destroy?.();
-    }, [], route);
+	useEffect(
+		() => {
+			const trash = new Janitor();
+			const systemMod = getInstanceByName(debug.info(callback, "s")[0]) as ModuleScript;
+
+			const callbackCast = callback as unknown as (data: unknown, player?: Player) => void;
+
+			trash.Add(route.listen(callbackCast) as unknown as Callback);
+
+			if (systemMod)
+				trash.Add(
+					hotReloader.listen(
+						systemMod,
+						() => {},
+						() => trash?.Destroy?.(),
+					),
+				);
+
+			return () => trash?.Destroy?.();
+		},
+		[],
+		route,
+	);
 }

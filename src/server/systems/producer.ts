@@ -8,14 +8,10 @@ export interface MatterProducers {
 }
 
 
-const initialState: MatterProducers = {
-    
-};
+const initialState: MatterProducers = {};
 
 
-const producerFunctions = {
-    
-}
+const producerFunctions = {}
 
 export const producer = createProducer<MatterProducers, typeof producerFunctions>(initialState, producerFunctions);
 
