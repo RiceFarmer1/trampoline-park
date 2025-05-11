@@ -19,3 +19,5 @@ export const ModelDebugger = component<Model | BasePart>("ModelDebugger");
 export const Tycoon = component<{}>("Tycoon");
 export const Body = component<{ rootPart: BasePart; character: Model }>("Body");
 export const Data = component<{}>("Data");
+export const SpawnLocation = component<{ spawn: Vector3 }>("SpawnLocation");
+export const Transform = component<{ transform: CFrame }>("Transform");
