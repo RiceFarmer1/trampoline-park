@@ -1,3 +1,4 @@
 type Character = Model & {
-    ["Humanoid"]: Humanoid,
+    ["Humanoid"]: Humanoid
+    ["HumanoidRootPart"]: BasePart,
 }

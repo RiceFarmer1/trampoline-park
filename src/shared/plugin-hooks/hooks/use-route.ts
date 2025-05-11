@@ -32,9 +32,9 @@ function getInstanceByName(fullName: string): Instance | undefined {
 	return currentInstance;
 }
 
-export function useRoute<T extends keyof typeof routes>(
-	route: typeof routes[T],
-	callback: Parameters<typeof routes[T]["listen"]>[0],
+export function useRoute<T extends typeof routes[keyof typeof routes]>(
+	route: T,
+	callback: FirstParam<T["listen"]>,
 ) {
 	useEffect(
 		() => {

@@ -1,6 +1,6 @@
 import { HotReloader } from "@rbxts/hot-reloader";
 import { Janitor } from "@rbxts/janitor";
-import { Name, World } from "@rbxts/jecs";
+import { Entity, Name, World } from "@rbxts/jecs";
 import { Scheduler } from "@rbxts/planck";
 
 export const hotReloader = new HotReloader();
@@ -16,7 +16,8 @@ const component = <T = true>(name: string, defaultValue?: T) => {
 };
 
 export const ModelDebugger = component<Model | BasePart>("ModelDebugger");
-export const Tycoon = component<{}>("Tycoon");
+export const Player = world.entity()
+export const Tycoon = component<{ ownership: Entity, index: number }>("Tycoon");
 export const Body = component<{ rootPart: BasePart; character: Model }>("Body");
 export const Data = component<{}>("Data");
 export const SpawnLocation = component<{ spawn: Vector3 }>("SpawnLocation");
