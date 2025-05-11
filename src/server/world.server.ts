@@ -1,4 +1,4 @@
 import { start } from "shared/jecs/start";
-import health from "./systems/stats/health";
+import updateOwnership from "./systems/tycoon/updateOwnership";
 
-start([ { system: health } ])
+start([  { system: updateOwnership } ])
